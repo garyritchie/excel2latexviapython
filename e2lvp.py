@@ -153,7 +153,7 @@ def _tupple2latexstring(row_tup, usr_settings, merge_list):
 
             else:
 
-                if row_tup[colidx].fill.start_color.index is not '00000000':
+                if row_tup[colidx].fill.start_color.index != '00000000':
                     value_string = "\\cellcolor[HTML]{" + row_tup[colidx].fill.start_color.index[2:] + "}{" + \
                                    value_string + "}"
 
@@ -367,13 +367,13 @@ def _get_merged_cells(sheet):
 
     latex_code = []
 
-    if len(sheet.merged_cell_ranges) == 0:
+    if len(sheet.merged_cells.ranges) == 0:
         return [[], [], [], [], []]  # No merged cells, so return an empty list
 
-    for merge_ in sheet.merged_cell_ranges:  # For each merge in the sheet
+    for merge_ in sheet.merged_cells.ranges:  # For each merge in the sheet
 
         # Split the location string of the merge, and convert it it to an index number (e.g. "A3")
-        merge_loc_str = re.split(':', merge_)
+        merge_loc_str = re.split(':', str(merge_))
 
         # convert string to col/row index numbers
         start_coord = openpyxl.utils.coordinate_to_tuple(merge_loc_str[0])
